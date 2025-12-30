@@ -6,21 +6,21 @@ namespace EMS.Models
     public class Class
     {
         [Key]
-        public int id { get; set; }
-
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
 
         public int TeacherId { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "Grade cannot exceeds be empty")]
-        public string Grade { get; set; }  
+        [Range(1, 13, ErrorMessage = "Grade must be between 1 and 13")]
+        public required string Grade { get; set; }  
         
-        [Required(ErrorMessage = "Place cannot exceeds be empty")]
-        [StringLength(100)]
-        public string Place { get; set; }
+        [Required(ErrorMessage = "Place can not  be empty")]
+        [StringLength(100,ErrorMessage = "Place can not exceed 100 characters")]
+        public required string Place { get; set; }
 
         [ForeignKey("TeacherId")]
-        public Teacher Teacher { get; set; }
+        public Teacher? Teacher { get; set; }
 
 
 

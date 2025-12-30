@@ -6,17 +6,18 @@ namespace EMS.Models
     public class ClassStudent
     {
         [Key]
-        public int id { get; set; } 
+        public int Id { get; set; } 
         public int ClassId { get; set; }    
         public int StudentId { get; set; }
 
         //Forign Key Relationships
 
         [ForeignKey("ClassId")]
-        public Class Class { get; set; }
+        public Class? Class { get; set; }
 
 
         [ForeignKey("StudentId")]
-        public Student Student { get; set; }
-    }
+        public Student? Student { get; set; }
+     
+}
 }

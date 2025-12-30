@@ -11,7 +11,7 @@ namespace EMS.Models
         public int UserId { get; set; }
 
         [Required ]
-        [StringLength(100,ErrorMessage ="Name cannot excees 100 characters")]
+        [StringLength(100,ErrorMessage = "Name cannot exceeds 100 characters")]
         public required string Name { get; set; }
 
         [Required(ErrorMessage = "PhoneNumber is Required")]

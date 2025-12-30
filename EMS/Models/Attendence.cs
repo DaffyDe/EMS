@@ -2,7 +2,7 @@
 {
     public class Attendence
     {
-        [KEY]
+        
         public int Id { get; set; }
         public int StudentId { get; set; }
         public int ClassId { get; set; }

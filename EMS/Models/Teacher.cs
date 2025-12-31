@@ -1,0 +1,28 @@
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EMS.Models
+{
+    public class Teacher
+    {
+        [Key]
+        public int Id { get; set; }
+
+        public int UserId { get; set; }
+
+        [Required(ErrorMessage = "Name can not empty")]
+        [StringLength(100, MinimumLength = 5)]
+        [Display(Name = "Enter Full Name")]
+        public string Name { get; set; } = string.Empty;
+
+        [Required(ErrorMessage = "PhoneNumber can not be empty")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must be exactly 10 digits")]
+        [Display(Name = "Phone Number")]
+        public int PhoneNumber { get; set; }
+
+        [ForeignKey("UserId")]
+        public User? User { get; set; }
+
+        public ICollection<Class>? Classes { get; set; } = new List<Class>();
+    }
+}

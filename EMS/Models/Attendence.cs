@@ -1,4 +1,6 @@
-﻿namespace EMS.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace EMS.Models
 {
     public class Attendence
     {

@@ -10,13 +10,14 @@ namespace EMS.Models
 
         public int UserId { get; set; }
 
-        [Required(ErrorMessage = "name can't empty")]
-        [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters")]
+        [Required(ErrorMessage = "Name can not empty")]
+        [StringLength(100, MinimumLength = 5)]
+        [Display(Name = "Enter Full Name")]
         public string Name { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Phone number can not empty")]
-        [Phone(ErrorMessage = "Please enter a valid phone number")]
-        [StringLength(15, ErrorMessage = "Phone number cannot exceed 10 characters")]
+        [Required(ErrorMessage = "PhoneNumber can not be empty")]
+        [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must be exactly 10 digits")]
+        [Display(Name = "Phone Number")]
         public int PhoneNumber { get; set; }
 
         [ForeignKey("UserId")]

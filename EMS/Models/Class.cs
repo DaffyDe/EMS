@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMS.Models
@@ -11,7 +11,6 @@ namespace EMS.Models
 
         public int TeacherId { get; set; }
 
-        [Required]
         [Range(1, 13, ErrorMessage = "Grade must be between 1 and 13")]
         public required string Grade { get; set; }  
         
@@ -21,6 +20,11 @@ namespace EMS.Models
 
         [ForeignKey("TeacherId")]
         public Teacher? Teacher { get; set; }
+      
+        public ICollection<ClassStudent>? ClassStudents { get; set; } = new List<ClassStudent>();
+        public ICollection<Result>? Results { get; set; } = new List<Result>();
+        public ICollection<Attendence>? Attendences { get; set; } = new List<Attendence>();
+        public ICollection<Announcement>? Announcements { get; set; } = new List<Announcement>();
 
 
 

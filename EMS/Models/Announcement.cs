@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -8,7 +8,7 @@ namespace EMS.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int AnnouncementId { get; set; }
+        public int Id { get; set; }
 
         public int ClassId { get; set; }
 
@@ -27,9 +27,8 @@ namespace EMS.Models
         
         public DateTime DateTime { get; set; }
 
-
         [ForeignKey("ClassId")]
-        public  Class? Class { get; set; }
+        public Class? Class { get; set; }
 
 
 

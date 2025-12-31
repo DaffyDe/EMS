@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -20,8 +20,6 @@ namespace EMS.Models
 
         [Required]
         public bool IsPresent { get; set; }
-
-
 
         [ForeignKey("StudentId")]
         public Student? Student { get; set; }

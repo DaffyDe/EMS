@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EMS.Models
@@ -15,13 +15,13 @@ namespace EMS.Models
         [Required]
         public int StudentId { get; set; }
 
-      
-
+     
         [ForeignKey("ClassId")]
         public Class? Class { get; set; }
 
 
         [ForeignKey("StudentId")]
         public Student? Student { get; set; }
+
     }
 }

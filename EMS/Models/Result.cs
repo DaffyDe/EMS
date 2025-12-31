@@ -1,4 +1,4 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -6,10 +6,9 @@ namespace EMS.Models
 {
     public class Result
     {
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int ResultId { get; set; }
+        public int Id { get; set; }
 
         public int StudentId { get; set; }
 
@@ -24,7 +23,11 @@ namespace EMS.Models
         [Range(0, 100 , ErrorMessage = "Marks must be between 1 and 13")]
         public int Marks { get; set; }
 
-
+        [ForeignKey("ClassId")]
+        public Class? Class { get; set; }
+      
+        [ForeignKey("StudentId")]
+        public Student? Student { get; set; }
 
     }
 }

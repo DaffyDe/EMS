@@ -9,16 +9,18 @@
     <meta charset="utf-8" />
     <title>EduConnect</title>
 
-    <!-- IMPORTANT: Load CSS manually -->
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/css/navbar.css" />
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
 
+    <!-- ✅ REUSABLE NAVBAR COMPONENT -->
+    @await Html.PartialAsync("_NavBar")
+
+    <!-- Landing Page Content -->
     <div class="landing-container">
-        <!-- Header -->
-        <header class="landing-header">
-            <div class="logo">📘 EduConnect</div>
-        </header>
+        
 
         <!-- Hero Section -->
         <section class="hero">
@@ -59,6 +61,7 @@
                 <p>Publish exam results and announcements instantly.</p>
             </div>
         </section>
+
     </div>
 
 </body>

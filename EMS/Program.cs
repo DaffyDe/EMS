@@ -3,20 +3,34 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+
+// Add services
+
 builder.Services.AddControllersWithViews();
 
+// Configure EF Core with SQLite
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("Data Source=school.db"));
 
 
+// Enable Session
+
+builder.Services.AddDistributedMemoryCache(); // In-memory cache for session
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session timeout
+    options.Cookie.HttpOnly = true;                // Prevent JS access
+    options.Cookie.IsEssential = true;             // Required for GDPR
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+
+// Configure Middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
@@ -25,10 +39,13 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseSession();       // <-- MUST come before UseAuthorization
 app.UseAuthorization();
+
+// Default Route
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+    pattern: "{controller=Account}/{action=Login}/{id?}"); // start at login
 
 app.Run();

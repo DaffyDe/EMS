@@ -1,32 +1,47 @@
-using System.Diagnostics;
-using EMS.Models;
+using EMS.Data;
 using Microsoft.AspNetCore.Mvc;
 
-namespace EMS.Controllers
+public class HomeController : Controller
 {
-    public class HomeController : Controller
+    private readonly ApplicationDbContext _context;
+
+    public HomeController(ApplicationDbContext context)
     {
-        private readonly ILogger<HomeController> _logger;
+        _context = context;
+    }
 
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
+    // LANDING PAGE
+    public IActionResult Index()
+    {
+        return View();
+    }
 
-        public IActionResult Index()
+    // PARENT VIEW PAGE
+    public IActionResult Parent()
+    {
+        return View();
+    }
+
+    // PARENT SEARCH ACTION
+    [HttpPost]
+    public IActionResult Parent(string email, string phone)
+    {
+        var student = _context.Students
+            .FirstOrDefault(s =>
+                s.User.Email == email &&
+                s.PhoneNumber == phone);
+
+        if (student == null)
         {
+            ViewBag.Error = "Student not found";
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+        var classes = _context.ClassStudents
+            .Where(cs => cs.StudentId == student.Id)
+            .Select(cs => cs.Class)
+            .ToList();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        return View("ParentResult", classes);
     }
 }

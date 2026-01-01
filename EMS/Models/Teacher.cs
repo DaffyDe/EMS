@@ -10,6 +10,8 @@ namespace EMS.Models
 
         public int UserId { get; set; }
 
+        public string TeacherCode { get; set; }
+
         [Required(ErrorMessage = "Name can not empty")]
         [StringLength(100, MinimumLength = 5)]
         [Display(Name = "Enter Full Name")]
@@ -18,11 +20,12 @@ namespace EMS.Models
         [Required(ErrorMessage = "PhoneNumber can not be empty")]
         [RegularExpression(@"^\d{10}$", ErrorMessage = "Phone number must be exactly 10 digits")]
         [Display(Name = "Phone Number")]
-        public int PhoneNumber { get; set; }
+        public required string PhoneNumber { get; set; }
 
         [ForeignKey("UserId")]
         public User? User { get; set; }
 
         public ICollection<Class>? Classes { get; set; } = new List<Class>();
+       
     }
 }

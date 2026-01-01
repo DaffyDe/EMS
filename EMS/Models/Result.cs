@@ -15,7 +15,7 @@ namespace EMS.Models
         public int ClassId { get; set; }
 
         [Required(ErrorMessage = "ExamTitle can not be empty")]
-        [StringLength(100, ErrorMessage = "ExamTitle can not exceed 100 characters")])]
+        [StringLength(100, ErrorMessage = "ExamTitle can not exceed 100 characters")]
         [Display(Name ="Exam Title")]
         public required string ExamTitle { get; set; }
 

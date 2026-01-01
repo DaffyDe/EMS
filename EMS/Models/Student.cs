@@ -11,6 +11,7 @@ namespace EMS.Models
         public int Id { get; set; }
 
         public int UserId { get; set; }
+        public required string StudentCode { get; set; }
 
         [Required (ErrorMessage ="Name can not be empty")]
         [StringLength(100,MinimumLength =5)]
@@ -27,10 +28,7 @@ namespace EMS.Models
         public User? User { get; set; }
 
         public ICollection<ClassStudent>? ClassStudents { get; set; } = new List<ClassStudent>();
-
         public ICollection<Attendence>? Attendences { get; set; } = new List<Attendence>();
         public ICollection<Result>? Results { get; set; } = new List<Result>();
-
-
     }
 }

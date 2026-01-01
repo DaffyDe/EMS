@@ -21,6 +21,8 @@ namespace EMS.Models
         [Required]
         public bool IsPresent { get; set; }
 
+
+
         [ForeignKey("StudentId")]
         public Student? Student { get; set; }
 

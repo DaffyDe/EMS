@@ -11,8 +11,7 @@ namespace EMS.Models
         public int Id { get; set; }
 
         public int UserId { get; set; }
-
-        public string StudentCode { get; set; }
+        public required string StudentCode { get; set; }
 
         [Required (ErrorMessage ="Name can not be empty")]
         [StringLength(100,MinimumLength =5)]

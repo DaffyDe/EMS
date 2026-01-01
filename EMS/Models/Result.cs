@@ -23,6 +23,8 @@ namespace EMS.Models
         [Range(0, 100 , ErrorMessage = "Marks must be between 1 and 13")]
         public int Marks { get; set; }
 
+
+
         [ForeignKey("ClassId")]
         public Class? Class { get; set; }
       

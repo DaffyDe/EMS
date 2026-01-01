@@ -6,11 +6,12 @@ namespace EMS.Models
     public class Teacher
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         public int UserId { get; set; }
 
-        public string TeacherCode { get; set; }
+        public required string TeacherCode { get; set; }
 
         [Required(ErrorMessage = "Name can not empty")]
         [StringLength(100, MinimumLength = 5)]

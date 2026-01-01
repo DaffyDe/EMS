@@ -9,7 +9,6 @@ namespace EMS.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         public int ClassId { get; set; }
 
         [Required(ErrorMessage ="Title cannot be empty")]
@@ -26,6 +25,8 @@ namespace EMS.Models
         [Display(Name ="Announcement Date and Time")]
         
         public DateTime DateTime { get; set; }
+
+
 
         [ForeignKey("ClassId")]
         public Class? Class { get; set; }

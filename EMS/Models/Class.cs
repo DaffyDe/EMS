@@ -8,7 +8,6 @@ namespace EMS.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
-
         public int TeacherId { get; set; }
 
         [Range(1, 13, ErrorMessage = "Grade must be between 1 and 13")]

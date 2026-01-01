@@ -6,10 +6,9 @@ namespace EMS.Data
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+            : base(options) { }
 
+        
         public DbSet<User> Users { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Teacher> Teachers { get; set; }
@@ -23,51 +22,44 @@ namespace EMS.Data
         {
             base.OnModelCreating(modelBuilder);
 
-            // ======================
-            // UNIQUE CONSTRAINTS
-            // ======================
+           
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
-
-       
 
             modelBuilder.Entity<Student>()
                 .HasIndex(s => s.PhoneNumber)
                 .IsUnique();
 
-          
+            modelBuilder.Entity<Teacher>()
+                .HasIndex(t => t.PhoneNumber)
+                .IsUnique();
 
-            // ======================
-            // USER ↔ STUDENT (1–1)
-            // ======================
+            
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Student)
                 .WithOne(s => s.User)
                 .HasForeignKey<Student>(s => s.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // ======================
-            // USER ↔ TEACHER (1–1)
-            // ======================
+            
             modelBuilder.Entity<User>()
                 .HasOne(u => u.Teacher)
                 .WithOne(t => t.User)
                 .HasForeignKey<Teacher>(t => t.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // ======================
-            // TEACHER → CLASS (1–M)
-            // ======================
+           
             modelBuilder.Entity<Class>()
                 .HasOne(c => c.Teacher)
                 .WithMany(t => t.Classes)
                 .HasForeignKey(c => c.TeacherId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // ======================
-            // CLASS ↔ STUDENT (M–M)
-            // ======================
+           
+            modelBuilder.Entity<ClassStudent>()
+                .HasKey(cs => new { cs.ClassId, cs.StudentId }); // composite key
+
             modelBuilder.Entity<ClassStudent>()
                 .HasOne(cs => cs.Class)
                 .WithMany(c => c.ClassStudents)
@@ -80,9 +72,7 @@ namespace EMS.Data
                 .HasForeignKey(cs => cs.StudentId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // ======================
-            // ATTENDENCE (Class 1–M, Student 1–M)
-            // ======================
+           
             modelBuilder.Entity<Attendence>()
                 .HasOne(a => a.Class)
                 .WithMany(c => c.Attendences)
@@ -95,18 +85,14 @@ namespace EMS.Data
                 .HasForeignKey(a => a.StudentId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // ======================
-            // ANNOUNCEMENT (Class 1–M)
-            // ======================
+           
             modelBuilder.Entity<Announcement>()
                 .HasOne(a => a.Class)
                 .WithMany(c => c.Announcements)
                 .HasForeignKey(a => a.ClassId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // ======================
-            // RESULT (Class 1–M, Student 1–M)
-            // ======================
+            
             modelBuilder.Entity<Result>()
                 .HasOne(r => r.Class)
                 .WithMany(c => c.Results)

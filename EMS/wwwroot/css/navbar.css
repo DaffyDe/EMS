@@ -1,14 +1,19 @@
-﻿/* ==============================
-   NAVBAR COMPONENT
-   ============================== */
+﻿/* NAVBAR COMPONENT */
 
 .navbar {
-    background-color: white;
+    background-color: #ffffff;
     border-bottom: 1px solid #e5e7eb;
     padding: 15px 40px;
 }
 
 .navbar-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Left section */
+.navbar-left {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -23,3 +28,19 @@
     font-weight: 600;
     color: #1f2937;
 }
+
+/* Menu links */
+.navbar-menu {
+    display: flex;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #1f2937;
+    font-weight: 500;
+}
+
+    .nav-link:hover {
+        color: #2563eb;
+    }

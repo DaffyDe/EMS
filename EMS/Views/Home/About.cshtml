@@ -1,0 +1,59 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>About Us</title>
+    <link rel="stylesheet" href="~/css/navbar.css" />
+    <link rel="stylesheet" href="~/css/about.css" />
+</head>
+<body>
+
+    @await Html.PartialAsync("_NavBar")
+
+    <section class="about-wrapper">
+
+        <!-- LEFT BLUE PANEL -->
+        <div class="about-left">
+            <h1>Our mission and<br>vision statement</h1>
+            <p>
+                This section shows the mission and vision statement of EduConnect,
+                describing our purpose, goals, expertise, expectations and commitment
+                to quality education management.
+            </p>
+        </div>
+
+        <!-- RIGHT CONTENT -->
+        <div class="about-right">
+
+            <div class="card vision">
+                <div class="icon">👁</div>
+                <div class="card-header">Vision</div>
+                <p>
+                    To become the largest education management platform by embracing
+                    innovative thinking and establishing worldwide recognition.
+                </p>
+            </div>
+
+            <div class="card mission">
+                <div class="icon">⚙</div>
+                <div class="card-header">Mission</div>
+                <p>
+                    To provide customer-centric, cost-competitive, innovative and
+                    functional IT solutions to valuable customers.
+                </p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- IMAGE SECTION -->
+    <section class="about-image">
+        <img src="~/images/about-team.jpg">
+    </section>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<EMS.Models.Announcement>
+
+@{
+    ViewBag.Title = "Announcements";
+    var classes = ViewBag.Classes as List<EMS.Models.Class>;
+}
+
+<div class="container mt-4">
+
+    <h3>Announcements</h3>
+    <p class="text-muted">Post updates and messages to your classes</p>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+
+    <!-- CREATE NEW -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+            <h6>Create New Announcement</h6>
+            <hr />
+
+            <form asp-action="Create" method="post">
+
+                <div class="mb-3">
+                    <label>Select Class</label>
+                    <select name="classId" class="form-control" required>
+                        <option value="">-- Select Class --</option>
+                        @foreach (var cls in classes)
+                        {
+                            <option value="@cls.Id">@cls.Grade - @cls.Place</option>
+                        }
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label>Title</label>
+                    <input name="Title" class="form-control" placeholder="Announcement title" required />
+                </div>
+
+                <div class="mb-3">
+                    <label>Message</label>
+                    <textarea name="Description" class="form-control" rows="4" placeholder="Write your announcement message here..." required></textarea>
+                </div>
+
+                <button class="btn btn-primary">
+                    <i class="bi bi-send"></i> Post Announcement
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- PREVIOUS ANNOUNCEMENTS -->
+    <h6>Previous Announcements</h6>
+
+    @if (!Model.Any())
+    {
+        <p class="text-muted">No announcements yet.</p>
+    }
+    else
+    {
+        foreach (var item in Model)
+        {
+            <div class="card shadow-sm mb-2">
+                <div class="card-body">
+
+                    <div class="d-flex justify-content-between">
+                        <strong>@item.Title (@item.Class?.Grade - @item.Class?.Place)</strong>
+
+                        <form asp-action="Delete" method="post">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button class="btn btn-sm btn-outline-danger">🗑</button>
+                        </form>
+                    </div>
+
+                    <p class="text-muted small">
+                        @item.Description
+                    </p>
+
+                    <span class="text-secondary small">
+                        @item.DateTime.ToString("MMM dd, yyyy")
+                    </span>
+
+                </div>
+            </div>
+        }
+    }
+</div>

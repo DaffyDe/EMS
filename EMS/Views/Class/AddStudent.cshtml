@@ -1,0 +1,23 @@
+﻿@model EMS.Models.Class
+
+@{
+    ViewData["Title"] = "Add Student";
+}
+
+<h2>Add Student to Class</h2>
+
+<p>
+    Class: <strong>Grade @Model.Grade</strong>, Location: <strong>@Model.Place</strong>
+</p>
+
+<form asp-controller="Class" asp-action="AddStudent" method="post">
+    <input type="hidden" name="classId" value="@Model.Id" />
+
+    <div class="mb-3">
+        <label class="form-label">Student Code</label>
+        <input type="text" name="studentCode" class="form-control" placeholder="Enter student code" required />
+    </div>
+
+    <button type="submit" class="btn btn-success">Add Student</button>
+    <a asp-controller="Teacher" asp-action="Dashboard" class="btn btn-secondary">Cancel</a>
+</form>

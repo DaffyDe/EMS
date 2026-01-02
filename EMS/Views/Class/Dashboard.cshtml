@@ -1,0 +1,101 @@
+﻿@model IEnumerable<EMS.Models.Class>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Classes</title>
+    <link rel="stylesheet" href="~/css/dashboard.css" />
+</head>
+<body>
+
+    <div class="dashboard">
+
+        
+
+        <!-- MAIN -->
+        <div class="main">
+
+            <!-- TOP BAR -->
+            <div class="topbar">
+                <div>
+                    <h1>My Classes</h1>
+                    <span>Manage your classes and students</span>
+                </div>
+            </div>
+
+            <!-- CREATE CLASS FORM -->
+            <div class="create-class">
+                <form asp-controller="Class" asp-action="Create" method="post">
+                    <input type="text" name="grade" placeholder="Grade (e.g. Grade 10)" required />
+                    <input type="text" name="place" placeholder="Place (e.g. Room 101)" required />
+                    <button type="submit" class="add-btn">+ Add Class</button>
+                </form>
+            </div>
+
+            <!-- CARDS -->
+            <div class="cards">
+
+                @if (!Model.Any())
+                {
+                    <p>No classes created yet.</p>
+                }
+                else
+                {
+                    @foreach (var cls in Model)
+                    {
+                        <div class="card">
+                            <h3>@cls.Grade</h3>
+                            <p>Location: @cls.Place</p>
+
+                            <div class="card-footer">
+                                <!-- VIEW (can link to details if implemented) -->
+                                <form asp-controller="Class"
+                                      asp-action="Dashboard"
+                                      method="get" style="display:inline;">
+                                    <button class="view-btn">👁 View</button>
+                                </form>
+
+                                <!-- EDIT -->
+                                <a asp-controller="Class"
+                                   asp-action="Edit"
+                                   asp-route-id="@cls.Id"
+                                   class="icon-btn">✏️</a>
+
+                                <!-- DELETE (ONE CLICK) -->
+                                <form asp-controller="Class"
+                                      asp-action="Delete"
+                                      method="post"
+                                      style="display:inline;">
+                                    <input type="hidden" name="id" value="@cls.Id" />
+                                    <button type="submit" class="icon-btn delete"
+                                            title="Delete Class">
+                                        🗑
+                                    </button>
+                                </form>
+                            </div>
+
+                            <!-- ADD STUDENT FORM -->
+                            <form asp-controller="Class"
+                                  asp-action="AddStudent"
+                                  method="post"
+                                  class="add-student-form">
+                                <input type="hidden" name="classId" value="@cls.Id" />
+                                <input type="text" name="studentCode"
+                                       placeholder="Student Code" required />
+                                <button type="submit">Add Student</button>
+                            </form>
+                        </div>
+                    }
+                }
+
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

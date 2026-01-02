@@ -8,22 +8,21 @@ var builder = WebApplication.CreateBuilder(args);
 // =======================
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddDistributedMemoryCache();
 
-// 🔹 Environment-safe SQLite connection
+// SQLite connection
 string connectionString;
 
 if (builder.Environment.IsDevelopment())
 {
-    // LOCAL (Visual Studio)
     connectionString = builder.Configuration.GetConnectionString("DefaultConnection")!;
 }
 else
 {
-    // AZURE (Writable directory)
     var dbPath = Path.Combine(
         Environment.GetEnvironmentVariable("HOME")!,
-        "site",
-        "wwwroot",
+        "EMS",
+        "App_Data",
         "school.db"
     );
 
@@ -34,7 +33,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite(connectionString)
 );
 
-// SESSION
 builder.Services.AddSession(options =>
 {
     options.IdleTimeout = TimeSpan.FromMinutes(30);
@@ -75,7 +73,7 @@ app.MapControllerRoute(
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.Migrate(); // ✅ Applies migrations locally & on Azure
+    db.Database.Migrate();
 }
 
 app.Run();

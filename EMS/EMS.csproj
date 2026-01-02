@@ -31,8 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="school.db">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <None Update="App_Data\school.db">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 

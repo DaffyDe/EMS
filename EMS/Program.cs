@@ -69,13 +69,13 @@ app.MapControllerRoute(
 );
 
 // =======================
-// DB INITIALIZATION
+// DATABASE MIGRATIONS
 // =======================
 
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-    db.Database.EnsureCreated(); // Creates DB & tables if missing
+    db.Database.Migrate(); // ✅ Applies migrations locally & on Azure
 }
 
 app.Run();

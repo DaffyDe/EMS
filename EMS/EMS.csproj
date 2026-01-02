@@ -24,4 +24,16 @@
     <Folder Include="Views\Teacher\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Update="Migrations\20251230204053_InitialCreate.cs">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="school.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
